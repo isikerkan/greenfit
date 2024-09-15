@@ -108,7 +108,3 @@ Ensure all dependencies are installed using the \`requirements.txt\` file or by 
 ## Contributing
 
 If you'd like to contribute to this project, feel free to fork the repository and submit a pull request with your improvements or bug fixes.
-
-## License
-
-This project is open-source and licensed under the MIT License.

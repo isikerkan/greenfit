@@ -1,0 +1,173 @@
+Artikel
+	- ID
+	- Artikel-Nr.
+	- Name
+	- Barcode
+	- Hersteller-ID [many2one Hersteller]
+	- Messeinheit-ID [many2one Messeinheiten Artikel]
+	- lebensmittel_kategorie (many2one Lebensmittel Kategorie)
+
+Rezept
+	- ID
+	- Name
+
+Zutaten (Junction Table)
+	- ID
+	- Artikel-ID [many2many]
+	- Rezept-ID [many2many]
+
+Nährwerte
+	- ID
+	- Werte pro 100g 100ml
+	- Artikel ID
+	- Kalorien - kcal
+	- Eiweiss - g
+	- Kohlenhydrate - g
+	- Gesamtfettigkeit -g
+	- Gesättigte Fettsäuren - g
+	- Einfach ungesättigte Fettsäuren - g
+	- Mehrfach ungesättigte Fettsäuren -g
+	- Kohlenhydrate -g
+	- Zucker - g
+	- Balaststoffe - g
+	- Salz - g
+	- Vitamin C - mg
+	- Vitamin D - μg
+	- Vitmin A - μg
+	- Vitamin B1 (Thiamin - mg
+	- Vitamin B2 (Riboflavin) - mg
+	- Vitamin B3 (Niacin) - mg
+	- Vitamin B5 (Pantothensäure) - mg
+	- Vitamin B6 - mg
+	- Vitamin B7 (Biotin) - μg
+	- Vitamin B11 (Folsäure) - μg
+	- Vitamin B12 - μg
+	- Vitamin E - mg
+	- Vitamin K - μg
+	- Kalzium - mg
+	- Eisen - mg
+	- Arsen - μg
+	- Bor - mg
+	- Biotin - μg
+	- Cholin - mg
+	- Chlorid - mg
+	- Chrom - mg
+	- Kobalt - μg
+	- Kupfer - mg
+	- Fluorid - mg
+	- Fluor - mg
+	- Jod - μg
+	- Magnesium - mg
+	- Mangan - mg
+	- Molybdän - μg
+	- Phosphor - mg
+	- Kalium - mg
+	- Rubidium - μg
+	- Selen - μg
+	- Silizium - mg
+	- Schwefel - mg
+	- Zinn - mg
+	- Vanadium - μg
+	- Zink - mg
+	- Wasser - ml
+	- Alkohol - ml
+	
+Messeinheiten Artikel
+	- ID
+	- Einheit
+	
+Hersteller
+	- ID
+	- Name
+	- Land
+
+Portion
+	- ID
+	- Portionsgrösse Typ
+	- Menge (Zahl)
+
+Portionsgrössen (Junction Table)
+	- ID
+	- Portion-ID [one2one]
+	- Artikel-ID [one2one]
+	- Rezept-ID [one2one]
+	- Zahl(Menge)
+
+Lebensmittel Kategorie
+	- ID
+	- Name
+	- Typ
+	
+Slots (Konsumationszeiten, z.B. Morgen, Mittag, Zvieri, Abend)
+	- ID
+	- Name
+	
+Konsumation (Konsumationszeiten, geplant ist Morgen, Mittag, Zvieri, Abend. Im Code können wir unterschiedliche Typen wie regulär, Intermediet Fasting, usw. abdecken)
+	- ID
+	- Slots-ID [many2many]
+	- Artikel-ID [many2many]
+	- Rezept-ID [many2many]
+	- person-id (many2one Person)
+
+Person
+	- Name
+	- Alter
+	- Geschlecht
+	- Grösse
+	- Gewicht
+	- Allergien? Sollen wir Allergene auch tracken
+
+Empfelungen Tageswerte
+	- ID
+	- Artikel ID
+	- Kalorien - kcal
+	- Eiweiss - g
+	- Kohlenhydrate - g
+	- Gesamtfettigkeit -g
+	- Gesättigte Fettsäuren - g
+	- Einfach ungesättigte Fettsäuren - g
+	- Mehrfach ungesättigte Fettsäuren -g
+	- Kohlenhydrate -g
+	- Zucker - g
+	- Balaststoffe - g
+	- Salz - g
+	- Vitamin C - mg
+	- Vitamin D - μg
+	- Vitmin A - μg
+	- Vitamin B1 (Thiamin - mg
+	- Vitamin B2 (Riboflavin) - mg
+	- Vitamin B3 (Niacin) - mg
+	- Vitamin B5 (Pantothensäure) - mg
+	- Vitamin B6 - mg
+	- Vitamin B7 (Biotin) - μg
+	- Vitamin B11 (Folsäure) - μg
+	- Vitamin B12 - μg
+	- Vitamin E - mg
+	- Vitamin K - μg
+	- Kalzium - mg
+	- Eisen - mg
+	- Arsen - μg
+	- Bor - mg
+	- Biotin - μg
+	- Cholin - mg
+	- Chlorid - mg
+	- Chrom - mg
+	- Kobalt - μg
+	- Kupfer - mg
+	- Fluorid - mg
+	- Fluor - mg
+	- Jod - μg
+	- Magnesium - mg
+	- Mangan - mg
+	- Molybdän - μg
+	- Phosphor - mg
+	- Kalium - mg
+	- Rubidium - μg
+	- Selen - μg
+	- Silizium - mg
+	- Schwefel - mg
+	- Zinn - mg
+	- Vanadium - μg
+	- Zink - mg
+	- Wasser - ml
+	- Alkohol - ml

@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: ${DB_URI:jdbc:postgresql://greenfit-postgres-local:5432/postgres}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:Sample123}
+
+  flyway:
+    url: ${DB_URI:jdbc:postgresql://greenfit-postgres-local:5432/postgres}
+    user: ${DB_USER:postgres}
+    password: ${DB_PASS:Sample123}
+
+gg:
+  jte:
+    development-mode: false
+    usePrecompiledTemplates: true

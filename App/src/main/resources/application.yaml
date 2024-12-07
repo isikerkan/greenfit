@@ -1,0 +1,33 @@
+logging:
+  level:
+    root: info
+    ch.pa5.greenfit: debug
+    com.zaxxer: info
+
+
+spring:
+  application:
+    name: greenfit
+
+  datasource:
+    url: ${DB_URI:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:Sample123}
+  jpa:
+    properties:
+      hibernate:
+        default_schema: greenfit
+
+  flyway:
+    url: ${DB_URI:jdbc:postgresql://localhost:5432/postgres}
+    user: ${DB_USER:postgres}
+    password: ${DB_PASS:Sample123}
+    default-schema: greenfit
+    baseline-on-migrate: true
+    schemas:
+      - greenfit
+
+gg:
+  jte:
+    development-mode: true
+    usePrecompiledTemplates: false

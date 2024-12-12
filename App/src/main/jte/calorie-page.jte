@@ -1,11 +1,13 @@
-@param String userId
+@import ch.pa5.greenfit.repository.entity.UserEntity
 
-<div id="calorie-log" hx-get="api/calorie-log/${userId}" hx-trigger="load">
+@param UserEntity user
+
+<div id="calorie-log" hx-get="api/calorie-log/${user.getId()}" hx-trigger="load">
 </div>
 <hr>
 <div>
     <form method="POST" id="calorie-form" hx-post="api/calorie-log" hx-ext="json-enc-custom" hx-target="#calorie-log" hx-swap="beforeend">
-        <input type="hidden" name="user[id]" value="${userId}">
+        <input type="hidden" name="user[id]" value="${user.getId()}">
         <label for="food" hx-get="api/get-foods" hx-trigger="load" hx-target="#food"></label>
         <select id="food" name="recipe[id]">
         </select>

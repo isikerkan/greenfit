@@ -38,9 +38,7 @@ public class CalorieController {
   public String saveCalorieLog(@RequestBody PortionEntity portionEntity, Model model) {
     val savedPortionOpt = calorieService.savePortion(portionEntity);
     savedPortionOpt.ifPresent(
-        portion -> {
-          model.addAttribute("userPortion", portion);
-        });
+        portion -> model.addAttribute("userPortion", portion));
     return "fragment/user-portion";
   }
 }

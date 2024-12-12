@@ -1,5 +1,6 @@
 package ch.pa5.greenfit.filter;
 
+import ch.pa5.greenfit.service.UserService;
 import gg.jte.TemplateEngine;
 import gg.jte.output.WriterOutput;
 import jakarta.servlet.Filter;
@@ -23,6 +24,7 @@ import org.springframework.web.server.WebFilter;
 public class PartialFilter implements Filter {
 
   private final TemplateEngine templateEngine;
+  private final UserService userService;
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -36,7 +38,8 @@ public class PartialFilter implements Filter {
     if (hxRequestHeader == null) {
       resp.setContentType("text/html");
       val output = new WriterOutput(resp.getWriter());
-      templateEngine.render("index.jte", Map.of("currentPath", path), output);
+      val user = userService.findUser();
+      templateEngine.render("index.jte", Map.of("currentPath", path, "user", user), output);
     } else {
       chain.doFilter(request, response);
     }

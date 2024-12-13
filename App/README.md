@@ -35,10 +35,12 @@ Stop old container
 ```bash
 docker ps
 docker stop <container name>
-docker container rm <container name>
+
+# not needed with --rm flag
+#docker container rm <container name>
 ```
 Start new one
 ```bash
 docker pull banshay/greenfit
-docker run --env-file /var/opt/.env -d -p 8080:8080 banshay/greenfit
+docker run --env-file /var/opt/.env --rm -d -p 8080:8080 banshay/greenfit
 ```

@@ -1,3 +1,6 @@
+@import ch.pa5.greenfit.repository.entity.UserEntity
+
+@param UserEntity user
 @param String currentPath
 
 <!DOCTYPE html>
@@ -12,6 +15,10 @@
   <script src="https://cdn.jsdelivr.net/gh/Emtyloc/json-enc-custom@main/json-enc-custom.js"></script>
 </head>
 <body>
+
+@if (user != null)
+  @template.header(user = user)
+@endif
 
 <div id="content" hx-get="${currentPath}"  hx-trigger="load" ></div>
 

@@ -40,4 +40,12 @@ public class ActivityService {
   public Optional<ActivityEntity> findActivityLog(Long activityLogId) {
     return activityRepository.findById(activityLogId);
   }
+
+  public void startActivityTimer(){
+
+  }
+
+  public void stopActivityTimer(){
+
+  }
 }

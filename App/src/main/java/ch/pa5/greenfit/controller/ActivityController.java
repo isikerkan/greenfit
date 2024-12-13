@@ -49,4 +49,15 @@ public class ActivityController {
         });
     return "fragment/user-activity";
   }
+
+
+  @PostMapping("/activity-timer/start")
+  public void startActivityTimer() {
+
+  }
+
+  @PostMapping("/activity-timer/stop")
+  public void stopActivityTimer() {
+
+  }
 }

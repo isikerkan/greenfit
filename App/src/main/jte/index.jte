@@ -17,7 +17,7 @@
 <body>
 
 @if (user != null)
-  @template.header()
+  @template.header(user = user)
 @endif
 
 <div id="content" hx-get="${currentPath}"  hx-trigger="load" ></div>

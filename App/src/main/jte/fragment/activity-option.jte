@@ -2,7 +2,8 @@
 @import java.util.List
 
 @param List<ActivityEntity> activities
+@param Long selected
 
 @for(ActivityEntity activity: activities)
-    <option value="${activity.getId()}">${activity.getName()}</option>
+    <option value="${activity.getId()}" selected="${activity.getId().equals(selected)}">${activity.getName()}</option>
 @endfor

@@ -1,6 +1,7 @@
 package ch.pa5.greenfit.controller;
 
 import ch.pa5.greenfit.repository.entity.UserEntity;
+import ch.pa5.greenfit.service.ActivityService;
 import ch.pa5.greenfit.service.UserService;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ViewController {
 
   private final UserService userService;
+  private final ActivityService activityService;
 
 
   @GetMapping("/dashboard")
@@ -38,7 +40,9 @@ public class ViewController {
 
   @GetMapping("/activities")
   public String activities(Model model) {
-    model.addAttribute("user", userService.findUser());
+    val user = userService.findUser();
+    model.addAttribute("user", user);
+    model.addAttribute("activeTracker", activityService.findActiveTracker(user.getId()).orElse(null));
     return "activity-page";
   }
 }

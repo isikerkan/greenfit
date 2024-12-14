@@ -46,7 +46,11 @@ public class UserService {
     val userEntity = new UserEntity();
     userEntity.setExternalId(userName);
     val savedPortion = userRepository.save(userEntity);
-    entityManager.refresh(savedPortion);
+    try {
+      //first time users have an exception here
+      entityManager.refresh(savedPortion);
+    } catch (Exception ignored) {
+    }
     return userRepository.findById(savedPortion.getId());
   }
 }

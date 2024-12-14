@@ -12,10 +12,18 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Instant;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.With;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "activity_log")
 public class ActivityLogEntity {
@@ -33,4 +41,7 @@ public class ActivityLogEntity {
 
   @Column(name = "duration_s")
   private BigInteger duration;
+
+  @CreationTimestamp
+  private Instant createdAt;
 }

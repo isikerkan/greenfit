@@ -2,4 +2,4 @@
 
 @param ActivityLogEntity userActivity
 
-<div>${userActivity.getActivity().getName()} - ${userActivity.getDuration()}</div>
+<div>${userActivity.getActivity().getName()} - ${userActivity.getDuration()}s</div>

@@ -11,8 +11,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
@@ -34,4 +36,7 @@ public class PortionEntity {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private UserEntity user;
+
+  @CreationTimestamp
+  private Instant createdAt;
 }

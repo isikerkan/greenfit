@@ -1,7 +1,9 @@
 package ch.pa5.greenfit.service;
 
+import ch.pa5.greenfit.repository.UserOptionRepository;
 import ch.pa5.greenfit.repository.UserRepository;
 import ch.pa5.greenfit.repository.entity.UserEntity;
+import ch.pa5.greenfit.repository.entity.UserOptionEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import java.security.Principal;
@@ -22,6 +24,7 @@ public class UserService {
 
   private final EntityManager entityManager;
   private final UserRepository userRepository;
+  private final UserOptionRepository userOptionRepository;
 
   private Optional<String> getAuthenticatedUsername() {
     return Optional.ofNullable(SecurityContextHolder.getContext())
@@ -47,10 +50,21 @@ public class UserService {
     userEntity.setExternalId(userName);
     val savedPortion = userRepository.save(userEntity);
     try {
-      //first time users have an exception here
+      // first time users have an exception here
       entityManager.refresh(savedPortion);
     } catch (Exception ignored) {
     }
     return userRepository.findById(savedPortion.getId());
+  }
+
+  @Transactional
+  public Optional<UserEntity> saveUserOption(UserOptionEntity userOptionEntity) {
+    val user = findUser();
+    user.getOptions().setAge(userOptionEntity.getAge());
+    user.getOptions().setWeight(userOptionEntity.getWeight());
+    user.getOptions().setHeight(userOptionEntity.getHeight());
+    userRepository.save(user);
+    entityManager.refresh(user);
+    return userRepository.findById(user.getId());
   }
 }

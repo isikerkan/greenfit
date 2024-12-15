@@ -1,6 +1,6 @@
 logging:
   level:
-    root: info
+    root: debug
     ch.pa5.greenfit: debug
     com.zaxxer: info
 

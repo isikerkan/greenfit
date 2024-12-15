@@ -4,7 +4,7 @@
     <ul>
         <li><a href="/activities">Activities</a></li>
         <li><a href="/calories">Calories</a></li>
-        <li>Options</li>
+        <li><a href="/options">Options</a></li>
     </ul>
     @if (user == null)
     <div>

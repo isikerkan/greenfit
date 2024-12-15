@@ -45,4 +45,11 @@ public class ViewController {
     model.addAttribute("activeTracker", activityService.findActiveTracker(user.getId()).orElse(null));
     return "activity-page";
   }
+
+  @GetMapping("/options")
+  public String options(Model model) {
+    val user = userService.findUser();
+    model.addAttribute("user", user);
+    return "options-page";
+  }
 }

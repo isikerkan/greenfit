@@ -34,7 +34,8 @@ public class ActivityController {
   private final UserService userService;
 
   @GetMapping("/activity")
-  public String getAllActivities(@RequestParam(required = false) Long selectedActivity, Model model) {
+  public String getAllActivities(
+      @RequestParam(required = false) Long selectedActivity, Model model) {
     val activities = activityService.getAllActivities();
     log.info("This activity is selected: {}", selectedActivity);
     model.addAttribute("activities", activities);
@@ -51,7 +52,10 @@ public class ActivityController {
 
   @PostMapping("/activity-log")
   public String saveActivity(@RequestBody ActivityLogEntity activityLog, Model model) {
-    val savedActivityOpt = activityService.saveActivityLog(activityLog);
+    val savedActivityOpt =
+        activityService.saveActivityLog(
+            // the ui sends this in minutes
+            activityLog.withDuration(activityLog.getDuration().multiply(new BigInteger("60"))));
     savedActivityOpt.ifPresent(
         activity -> {
           model.addAttribute("userActivity", activity);

@@ -1,8 +1,9 @@
+@import ch.pa5.greenfit.repository.entity.ConsumptionEntity
 @import ch.pa5.greenfit.repository.entity.PortionEntity
 @import java.util.List
 
-@param List<PortionEntity> userPortions
+@param List<ConsumptionEntity> userConsumptions
 
-@for(PortionEntity userPortion : userPortions)
-    @template.fragment.user-portion(userPortion = userPortion)
+@for(ConsumptionEntity userConsumption : userConsumptions)
+    @template.fragment.user-portion(userConsumption = userConsumption)
 @endfor

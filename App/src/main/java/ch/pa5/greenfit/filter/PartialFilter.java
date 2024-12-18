@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -33,15 +34,22 @@ public class PartialFilter implements Filter {
     HttpServletResponse resp = (HttpServletResponse) response;
     String hxRequestHeader = req.getHeader("hx-request");
 
-    val path = req.getServletPath();
+    val path =
+        Optional.ofNullable(req.getQueryString())
+            .map(query -> "%s?%s".formatted(req.getServletPath(), query))
+            .orElse(req.getServletPath());
 
-    if (hxRequestHeader == null) {
-      resp.setContentType("text/html");
-      val output = new WriterOutput(resp.getWriter());
-      val user = userService.findUser();
-      templateEngine.render("index.jte", Map.of("currentPath", path, "user", user), output);
-    } else {
+    if (path.startsWith("/icon")) {
       chain.doFilter(request, response);
+    } else {
+      if (hxRequestHeader == null) {
+        resp.setContentType("text/html");
+        val output = new WriterOutput(resp.getWriter());
+        val user = userService.findUser();
+        templateEngine.render("index.jte", Map.of("currentPath", path, "user", user), output);
+      } else {
+        chain.doFilter(request, response);
+      }
     }
   }
 }

@@ -1,116 +1,118 @@
-CREATE TABLE Artikel
+-- Part 1: Creating tables without relationships
+
+CREATE TABLE Article
 (
-    ID             SERIAL PRIMARY KEY,
-    Artikel_Nr     VARCHAR(100) NOT NULL,
-    Barcode        VARCHAR(100),
-    Hersteller_ID  INT,
-    Messeinheit_ID INT
+    ID                 SERIAL PRIMARY KEY,
+    Article_Number     VARCHAR(100) NOT NULL,
+    Name               VARCHAR(255) NOT NULL,
+    Barcode            VARCHAR(100),
+    Manufacturer_ID    INT,
+    Unit_Of_Measure_ID INT,
+    Food_Category_ID   INT
 );
 
-CREATE TABLE Rezept
+CREATE TABLE Recipe
 (
     ID   SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Zutaten
+CREATE TABLE Ingredients
 (
     ID         SERIAL PRIMARY KEY,
-    Artikel_ID INT,
-    Rezept_ID  INT
+    Article_ID INT,
+    Recipe_ID  INT
 );
 
-CREATE TABLE Nährwerte
+CREATE TABLE Nutritional_Values
 (
-    ID                                 SERIAL PRIMARY KEY,
-    Werte_pro_100g_100ml               VARCHAR(50),
-    Artikel_ID                         INT,
-    Kalorien_kcal                      DECIMAL,
-    Eiweiss_g                          DECIMAL,
-    Kohlenhydrate_g                    DECIMAL,
-    Gesamtfettigkeit_g                 DECIMAL,
-    Gesättigte_Fettsäuren_g            DECIMAL,
-    Einfach_ungesättigte_Fettsäuren_g  DECIMAL,
-    Mehrfach_ungesättigte_Fettsäuren_g DECIMAL,
-    Zucker_g                           DECIMAL,
-    Balaststoffe_g                     DECIMAL,
-    Salz_g                             DECIMAL,
-    Vitamin_C_mg                       DECIMAL,
-    Vitamin_D_ug                       DECIMAL,
-    Vitamin_A_ug                       DECIMAL,
-    Vitamin_B1_Thiamin_mg              DECIMAL,
-    Vitamin_B2_Riboflavin_mg           DECIMAL,
-    Vitamin_B3_Niacin_mg               DECIMAL,
-    Vitamin_B5_Pantothensäure_mg       DECIMAL,
-    Vitamin_B6_mg                      DECIMAL,
-    Vitamin_B7_Biotin_ug               DECIMAL,
-    Vitamin_B11_Folsäure_ug            DECIMAL,
-    Vitamin_B12_ug                     DECIMAL,
-    Vitamin_E_mg                       DECIMAL,
-    Vitamin_K_ug                       DECIMAL,
-    Kalzium_mg                         DECIMAL,
-    Eisen_mg                           DECIMAL,
-    Arsen_ug                           DECIMAL,
-    Bor_mg                             DECIMAL,
-    Cholin_mg                          DECIMAL,
-    Chlorid_mg                         DECIMAL,
-    Chrom_mg                           DECIMAL,
-    Kobalt_ug                          DECIMAL,
-    Kupfer_mg                          DECIMAL,
-    Fluorid_mg                         DECIMAL,
-    Jod_ug                             DECIMAL,
-    Magnesium_mg                       DECIMAL,
-    Mangan_mg                          DECIMAL,
-    Molybdän_ug                        DECIMAL,
-    Phosphor_mg                        DECIMAL,
-    Kalium_mg                          DECIMAL,
-    Rubidium_ug                        DECIMAL,
-    Selen_ug                           DECIMAL,
-    Silizium_mg                        DECIMAL,
-    Schwefel_mg                        DECIMAL,
-    Zinn_mg                            DECIMAL,
-    Vanadium_ug                        DECIMAL,
-    Zink_mg                            DECIMAL,
-    Wasser_ml                          DECIMAL,
-    Alkohol_ml                         DECIMAL
+    ID                             SERIAL PRIMARY KEY,
+    Values_Per_100g_100ml          VARCHAR(50),
+    Article_ID                     INT,
+    Calories_kcal                  DECIMAL,
+    Protein_g                      DECIMAL,
+    Carbs_g                        DECIMAL,
+    Total_Fats_g                   DECIMAL,
+    Saturated_Fats_g               DECIMAL,
+    Monounsaturated_Fats_g         DECIMAL,
+    Polyunsaturated_Fats_g         DECIMAL,
+    Sugars_g                       DECIMAL,
+    Fiber_g                        DECIMAL,
+    Salt_g                         DECIMAL,
+    Vitamin_C_mg                   DECIMAL,
+    Vitamin_D_ug                   DECIMAL,
+    Vitamin_A_ug                   DECIMAL,
+    Vitamin_B1_Thiamin_mg          DECIMAL,
+    Vitamin_B2_Riboflavin_mg       DECIMAL,
+    Vitamin_B3_Niacin_mg           DECIMAL,
+    Vitamin_B5_Pantothenic_Acid_mg DECIMAL,
+    Vitamin_B6_mg                  DECIMAL,
+    Vitamin_B7_Biotin_ug           DECIMAL,
+    Vitamin_B11_Folic_Acid_ug      DECIMAL,
+    Vitamin_B12_ug                 DECIMAL,
+    Vitamin_E_mg                   DECIMAL,
+    Vitamin_K_ug                   DECIMAL,
+    Calcium_mg                     DECIMAL,
+    Iron_mg                        DECIMAL,
+    Arsenic_ug                     DECIMAL,
+    Boron_mg                       DECIMAL,
+    Choline_mg                     DECIMAL,
+    Chloride_mg                    DECIMAL,
+    Chromium_mg                    DECIMAL,
+    Cobalt_ug                      DECIMAL,
+    Copper_mg                      DECIMAL,
+    Fluoride_mg                    DECIMAL,
+    Iodine_ug                      DECIMAL,
+    Magnesium_mg                   DECIMAL,
+    Manganese_mg                   DECIMAL,
+    Molybdenum_ug                  DECIMAL,
+    Phosphorus_mg                  DECIMAL,
+    Potassium_mg                   DECIMAL,
+    Rubidium_ug                    DECIMAL,
+    Selenium_ug                    DECIMAL,
+    Silicon_mg                     DECIMAL,
+    Sulfur_mg                      DECIMAL,
+    Tin_mg                         DECIMAL,
+    Vanadium_ug                    DECIMAL,
+    Zinc_mg                        DECIMAL,
+    Water_ml                       DECIMAL,
+    Alcohol_ml                     DECIMAL
 );
 
-CREATE TABLE Messeinheiten_Artikel
-(
-    ID         SERIAL PRIMARY KEY,
-    Artikel_ID INT,
-    Einheit    VARCHAR(100)
-);
-
-CREATE TABLE Hersteller
+CREATE TABLE Units_Of_Measure
 (
     ID   SERIAL PRIMARY KEY,
-    Name VARCHAR(255) NOT NULL,
-    Land VARCHAR(100)
+    Unit VARCHAR(100)
+);
+
+CREATE TABLE Manufacturer
+(
+    ID      SERIAL PRIMARY KEY,
+    Name    VARCHAR(255) NOT NULL,
+    Country VARCHAR(100)
 );
 
 CREATE TABLE Portion
 (
-    ID                 SERIAL PRIMARY KEY,
-    Artikel_ID         INT,
-    Portionsgrösse_Typ VARCHAR(100),
-    Menge              DECIMAL
+    ID                SERIAL PRIMARY KEY,
+    Portion_Size_Type VARCHAR(100),
+    Amount            DECIMAL
 );
 
-CREATE TABLE Portionsgrössen
+CREATE TABLE Portion_Sizes
 (
     ID         SERIAL PRIMARY KEY,
     Portion_ID INT,
-    Artikel_ID INT,
-    Rezept_ID  INT,
-    Menge      DECIMAL
+    Article_ID INT,
+    Recipe_ID  INT,
+    Quantity   DECIMAL
 );
 
-CREATE TABLE Lebensmittel_Kategorie
+CREATE TABLE Food_Category
 (
     ID   SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
-    Typ  VARCHAR(100)
+    Type VARCHAR(100)
 );
 
 CREATE TABLE Slots
@@ -119,147 +121,143 @@ CREATE TABLE Slots
     Name VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE Konsumation
+CREATE TABLE Consumption
 (
     ID         SERIAL PRIMARY KEY,
     Slots_ID   INT,
-    Artikel_ID INT,
-    Rezept_ID  INT
+    Article_ID INT,
+    Recipe_ID  INT,
+    Person_ID  INT
 );
 
 CREATE TABLE Person
 (
-    ID         SERIAL PRIMARY KEY,
-    Name       VARCHAR(255) NOT NULL,
-    Alter      INT,
-    Geschlecht VARCHAR(10),
-    Grösse     DECIMAL,
-    Gewicht    DECIMAL,
-    Allergien  VARCHAR(255)
+    ID        SERIAL PRIMARY KEY,
+    Name      VARCHAR(255) NOT NULL,
+    Age       INT,
+    Gender    VARCHAR(10),
+    Height    DECIMAL,
+    Weight    DECIMAL,
+    Allergies VARCHAR(255)
 );
 
-CREATE TABLE Empfehlungen_Tageswerte
+CREATE TABLE Recommended_Daily_Values
 (
-    ID                                 SERIAL PRIMARY KEY,
-    Artikel_ID                         INT,
-    Kalorien_kcal                      DECIMAL,
-    Eiweiss_g                          DECIMAL,
-    Kohlenhydrate_g                    DECIMAL,
-    Gesamtfettigkeit_g                 DECIMAL,
-    Gesättigte_Fettsäuren_g            DECIMAL,
-    Einfach_ungesättigte_Fettsäuren_g  DECIMAL,
-    Mehrfach_ungesättigte_Fettsäuren_g DECIMAL,
-    Zucker_g                           DECIMAL,
-    Balaststoffe_g                     DECIMAL,
-    Salz_g                             DECIMAL,
-    Vitamin_C_mg                       DECIMAL,
-    Vitamin_D_ug                       DECIMAL,
-    Vitamin_A_ug                       DECIMAL,
-    Vitamin_B1_Thiamin_mg              DECIMAL,
-    Vitamin_B2_Riboflavin_mg           DECIMAL,
-    Vitamin_B3_Niacin_mg               DECIMAL,
-    Vitamin_B5_Pantothensäure_mg       DECIMAL,
-    Vitamin_B6_mg                      DECIMAL,
-    Vitamin_B7_Biotin_ug               DECIMAL,
-    Vitamin_B11_Folsäure_ug            DECIMAL,
-    Vitamin_B12_ug                     DECIMAL,
-    Vitamin_E_mg                       DECIMAL,
-    Vitamin_K_ug                       DECIMAL,
-    Kalzium_mg                         DECIMAL,
-    Eisen_mg                           DECIMAL,
-    Arsen_ug                           DECIMAL,
-    Bor_mg                             DECIMAL,
-    Cholin_mg                          DECIMAL,
-    Chlorid_mg                         DECIMAL,
-    Chrom_mg                           DECIMAL,
-    Kobalt_ug                          DECIMAL,
-    Kupfer_mg                          DECIMAL,
-    Fluorid_mg                         DECIMAL,
-    Jod_ug                             DECIMAL,
-    Magnesium_mg                       DECIMAL,
-    Mangan_mg                          DECIMAL,
-    Molybdän_ug                        DECIMAL,
-    Phosphor_mg                        DECIMAL,
-    Kalium_mg                          DECIMAL,
-    Rubidium_ug                        DECIMAL,
-    Selen_ug                           DECIMAL,
-    Silizium_mg                        DECIMAL,
-    Schwefel_mg                        DECIMAL,
-    Zinn_mg                            DECIMAL,
-    Vanadium_ug                        DECIMAL,
-    Zink_mg                            DECIMAL,
-    Wasser_ml                          DECIMAL,
-    Alkohol_ml                         DECIMAL
+    ID                             SERIAL PRIMARY KEY,
+    Article_ID                     INT,
+    Calories_kcal                  DECIMAL,
+    Protein_g                      DECIMAL,
+    Carbs_g                        DECIMAL,
+    Total_Fats_g                   DECIMAL,
+    Saturated_Fats_g               DECIMAL,
+    Monounsaturated_Fats_g         DECIMAL,
+    Polyunsaturated_Fats_g         DECIMAL,
+    Sugars_g                       DECIMAL,
+    Fiber_g                        DECIMAL,
+    Salt_g                         DECIMAL,
+    Vitamin_C_mg                   DECIMAL,
+    Vitamin_D_ug                   DECIMAL,
+    Vitamin_A_ug                   DECIMAL,
+    Vitamin_B1_Thiamin_mg          DECIMAL,
+    Vitamin_B2_Riboflavin_mg       DECIMAL,
+    Vitamin_B3_Niacin_mg           DECIMAL,
+    Vitamin_B5_Pantothenic_Acid_mg DECIMAL,
+    Vitamin_B6_mg                  DECIMAL,
+    Vitamin_B7_Biotin_ug           DECIMAL,
+    Vitamin_B11_Folic_Acid_ug      DECIMAL,
+    Vitamin_B12_ug                 DECIMAL,
+    Vitamin_E_mg                   DECIMAL,
+    Vitamin_K_ug                   DECIMAL,
+    Calcium_mg                     DECIMAL,
+    Iron_mg                        DECIMAL,
+    Arsenic_ug                     DECIMAL,
+    Boron_mg                       DECIMAL,
+    Choline_mg                     DECIMAL,
+    Chloride_mg                    DECIMAL,
+    Chromium_mg                    DECIMAL,
+    Cobalt_ug                      DECIMAL,
+    Copper_mg                      DECIMAL,
+    Fluoride_mg                    DECIMAL,
+    Iodine_ug                      DECIMAL,
+    Magnesium_mg                   DECIMAL,
+    Manganese_mg                   DECIMAL,
+    Molybdenum_ug                  DECIMAL,
+    Phosphorus_mg                  DECIMAL,
+    Potassium_mg                   DECIMAL,
+    Rubidium_ug                    DECIMAL,
+    Selenium_ug                    DECIMAL,
+    Silicon_mg                     DECIMAL,
+    Sulfur_mg                      DECIMAL,
+    Tin_mg                         DECIMAL,
+    Vanadium_ug                    DECIMAL,
+    Zinc_mg                        DECIMAL,
+    Water_ml                       DECIMAL,
+    Alcohol_ml                     DECIMAL
 );
 
--- Teil 2: Relationen zwischen Tabellen erstellen
+-- Part 2: Establishing relationships between tables
 
-ALTER TABLE Artikel
-    ADD CONSTRAINT fk_hersteller
-        FOREIGN KEY (Hersteller_ID)
-            REFERENCES Hersteller (ID);
+ALTER TABLE Article
+    ADD CONSTRAINT fk_manufacturer
+        FOREIGN KEY (Manufacturer_ID)
+            REFERENCES Manufacturer (ID);
 
-ALTER TABLE Artikel
-    ADD CONSTRAINT fk_messeinheit
-        FOREIGN KEY (Messeinheit_ID)
-            REFERENCES Messeinheiten_Artikel (ID);
+ALTER TABLE Article
+    ADD CONSTRAINT fk_unit_of_measure
+        FOREIGN KEY (Unit_Of_Measure_ID)
+            REFERENCES Units_Of_Measure (ID);
 
-ALTER TABLE Zutaten
-    ADD CONSTRAINT fk_artikel
-        FOREIGN KEY (Artikel_ID)
-            REFERENCES Artikel (ID);
+ALTER TABLE Ingredients
+    ADD CONSTRAINT fk_article
+        FOREIGN KEY (Article_ID)
+            REFERENCES Article (ID);
 
-ALTER TABLE Zutaten
-    ADD CONSTRAINT fk_rezept
-        FOREIGN KEY (Rezept_ID)
-            REFERENCES Rezept (ID);
+ALTER TABLE Ingredients
+    ADD CONSTRAINT fk_recipe
+        FOREIGN KEY (Recipe_ID)
+            REFERENCES Recipe (ID);
 
-ALTER TABLE Nährwerte
-    ADD CONSTRAINT fk_nährwerte_artikel
-        FOREIGN KEY (Artikel_ID)
-            REFERENCES Artikel (ID);
+ALTER TABLE Nutritional_Values
+    ADD CONSTRAINT fk_nutritional_values_article
+        FOREIGN KEY (Article_ID)
+            REFERENCES Article (ID);
 
-ALTER TABLE Messeinheiten_Artikel
-    ADD CONSTRAINT fk_messeinheiten_artikel
-        FOREIGN KEY (Artikel_ID)
-            REFERENCES Artikel (ID);
-
-ALTER TABLE Portion
-    ADD CONSTRAINT fk_portion_artikel
-        FOREIGN KEY (Artikel_ID)
-            REFERENCES Artikel (ID);
-
-ALTER TABLE Portionsgrössen
-    ADD CONSTRAINT fk_portionsgrössen_portion
+ALTER TABLE Portion_Sizes
+    ADD CONSTRAINT fk_portion_sizes_portion
         FOREIGN KEY (Portion_ID)
             REFERENCES Portion (ID);
 
-ALTER TABLE Portionsgrössen
-    ADD CONSTRAINT fk_portionsgrössen_artikel
-        FOREIGN KEY (Artikel_ID)
-            REFERENCES Artikel (ID);
+ALTER TABLE Portion_Sizes
+    ADD CONSTRAINT fk_portion_sizes_article
+        FOREIGN KEY (Article_ID)
+            REFERENCES Article (ID);
 
-ALTER TABLE Portionsgrössen
-    ADD CONSTRAINT fk_portionsgrössen_rezept
-        FOREIGN KEY (Rezept_ID)
-            REFERENCES Rezept (ID);
+ALTER TABLE Portion_Sizes
+    ADD CONSTRAINT fk_portion_sizes_recipe
+        FOREIGN KEY (Recipe_ID)
+            REFERENCES Recipe (ID);
 
-ALTER TABLE Konsumation
-    ADD CONSTRAINT fk_konsumation_slots
+ALTER TABLE Consumption
+    ADD CONSTRAINT fk_consumption_slots
         FOREIGN KEY (Slots_ID)
             REFERENCES Slots (ID);
 
-ALTER TABLE Konsumation
-    ADD CONSTRAINT fk_konsumation_artikel
-        FOREIGN KEY (Artikel_ID)
-            REFERENCES Artikel (ID);
+ALTER TABLE Consumption
+    ADD CONSTRAINT fk_consumption_article
+        FOREIGN KEY (Article_ID)
+            REFERENCES Article (ID);
 
-ALTER TABLE Konsumation
-    ADD CONSTRAINT fk_konsumation_rezept
-        FOREIGN KEY (Rezept_ID)
-            REFERENCES Rezept (ID);
+ALTER TABLE Consumption
+    ADD CONSTRAINT fk_consumption_recipe
+        FOREIGN KEY (Recipe_ID)
+            REFERENCES Recipe (ID);
 
-ALTER TABLE Empfehlungen_Tageswerte
-    ADD CONSTRAINT fk_empfehlungen_artikel
-        FOREIGN KEY (Artikel_ID)
-            REFERENCES Artikel (ID);
+ALTER TABLE Consumption
+    ADD CONSTRAINT fk_consumption_person
+        FOREIGN KEY (Person_ID)
+            REFERENCES Person (ID);
+
+ALTER TABLE Recommended_Daily_Values
+    ADD CONSTRAINT fk_recommended_values_article
+        FOREIGN KEY (Article_ID)
+            REFERENCES Article (ID);

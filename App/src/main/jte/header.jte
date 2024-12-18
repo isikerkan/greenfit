@@ -2,16 +2,17 @@
 
 <div>
     <ul>
+        <li><a href="/">Dashboard</a></li>
         <li><a href="/activities">Activities</a></li>
         <li><a href="/calories">Calories</a></li>
-        <li>Options</li>
+        <li><a href="/options">Options</a></li>
     </ul>
     @if (user == null)
-    <div>
-        <span>Login</span>
-        <span>Github</span>
-    </div>
+        <div>
+            <span>Login</span>
+            <span>Github</span>
+        </div>
     @else
-    <span>Logout</span>
+        <span><a href="/logout">Logout</a></span>
     @endif
 </div>

@@ -13,15 +13,14 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "portion_size")
-public class PortionSizeEntity {
+@Table(name = "units_of_measure")
+public class UnitOfMeasureEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Enumerated(value = EnumType.STRING)
-  @Column(name = "portion_size_type")
-  private PortionSize type;
+  @Column(name = "unit")
+  private PortionSize unit;
 
-  private BigDecimal amount;
 }

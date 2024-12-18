@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "rezept")
+@Table(name = "recipe")
 public class RecipeEntity {
   @Id private Long id;
   private String name;

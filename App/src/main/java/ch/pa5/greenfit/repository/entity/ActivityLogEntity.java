@@ -39,6 +39,7 @@ public class ActivityLogEntity {
   @JoinColumn(name = "activity_id")
   private ActivityEntity activity;
 
+  @With
   @Column(name = "duration_s")
   private BigInteger duration;
 

@@ -1,5 +1,5 @@
-@import ch.pa5.greenfit.repository.entity.PortionEntity
+@import ch.pa5.greenfit.repository.entity.ConsumptionEntity
 
-@param PortionEntity userPortion
+@param ConsumptionEntity userConsumption
 
-<div>${userPortion.getRecipe().getName()} - ${userPortion.getSize().getAmount()}${userPortion.getSize().getType().getDisplayName()}</div>
+<div>${userConsumption.getArticle().getName()} - ${userConsumption.getPortion().getSize().getAmount()}${userConsumption.getPortion().getSize().getType().getDisplayName()}</div>

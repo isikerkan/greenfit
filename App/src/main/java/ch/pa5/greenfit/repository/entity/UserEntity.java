@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
@@ -25,7 +26,6 @@ public class UserEntity {
 
   private String email;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="option_id")
-  private UserOptionEntity options = new UserOptionEntity();
+  @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private PersonEntity options;
 }

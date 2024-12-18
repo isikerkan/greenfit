@@ -1,1 +1,2 @@
-alter table portion add column user_id bigserial references "user" not null;
+alter table consumption
+    rename column person_id to user_id;

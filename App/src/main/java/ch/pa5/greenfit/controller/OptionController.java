@@ -1,6 +1,6 @@
 package ch.pa5.greenfit.controller;
 
-import ch.pa5.greenfit.repository.entity.UserOptionEntity;
+import ch.pa5.greenfit.repository.entity.PersonEntity;
 import ch.pa5.greenfit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +20,9 @@ public class OptionController {
   private final UserService userService;
 
   @PostMapping("/options")
-  public String saveOptions(@RequestBody UserOptionEntity userOptionEntity, Model model) {
-    val user = userService.saveUserOption(userOptionEntity).orElseThrow();
+  public String saveOptions(@RequestBody PersonEntity userOptionEntity, Model model) {
+     userService.saveUserOption(userOptionEntity).orElseThrow();
+     val user = userService.findUser();
 
     model.addAttribute("user", user);
 

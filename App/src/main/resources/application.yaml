@@ -1,6 +1,6 @@
 logging:
   level:
-    root: debug
+    root: info
     ch.pa5.greenfit: debug
     com.zaxxer: info
 
@@ -8,6 +8,7 @@ logging:
 spring:
   application:
     name: greenfit
+
 
   datasource:
     url: ${DB_URI:jdbc:postgresql://localhost:5432/postgres}

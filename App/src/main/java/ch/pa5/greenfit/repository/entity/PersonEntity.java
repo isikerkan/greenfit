@@ -12,18 +12,21 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
-@Table(name = "user_option")
-public class UserOptionEntity {
+@Table(name = "person")
+@ToString(exclude = {"user"})
+public class PersonEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "weight_kg")
+  @OneToOne(mappedBy = "options")
+  private UserEntity user;
+
   private Integer weight;
-  @Column(name="height_cm")
   private Integer height;
   private Integer age;
 }

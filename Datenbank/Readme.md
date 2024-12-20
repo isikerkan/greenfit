@@ -1,94 +1,85 @@
 # Food Tracker Database Deployment
 
-Dieses Repository enthält das Deployment-Skript und das Datenmodell für die PostgreSQL-Datenbank des Food Tracker-Projekts. Es deckt alle wichtigen Tabellen und deren Beziehungen ab, die für die Nachverfolgung von Artikeln, Rezepten, Nährwerten, Portionen und Konsumationszeiten erforderlich sind.
+This repository contains deployment scripts for the PostgreSQL database with more complex logic.
 
-## Inhaltsverzeichnis
+## Table of Contents
 
-1. [Überblick](#überblick)
-2. [Datenmodell](#datenmodell)
-3. [Deployment-Skript](#deployment-skript)
-4. [Integration der Schweizer Nährwertdatenbank](#integration-der-schweizer-nährwertdatenbank)
-5. [Anleitung zur Verwendung](#anleitung-zur-verwendung)
-6. [Kontakt](#kontakt)
-
----
-
-## Überblick
-
-Die Datenbank ist für die Verwaltung von Lebensmitteln, Rezepten, Verbrauch und den dazugehörigen Nährwertangaben konzipiert. Sie beinhaltet folgende Kernfunktionen:
-- Verfolgung von Artikeln und deren Nährwerte.
-- Erstellung von Rezepten und deren Zutaten.
-- Verwaltung von Portionen und Konsumationszeiten.
-- Erfassung personenbezogener Daten wie Allergien, Gewicht und empfohlene Tageswerte.
+1. [Overview](#overview)
+2. [Deployment Script](#deployment-script)
+3. [Integration of the Swiss Nutrient Database](#integration-of-the-swiss-nutrient-database)
+4. [Usage Instructions](#usage-instructions)
+5. [Mapper](#mapper)
 
 ---
 
-## Datenmodell
+## Overview
 
-Das Datenmodell definiert die Struktur und die Beziehungen zwischen den Tabellen. Die wichtigsten Tabellen umfassen:
-
-- **Artikel**: Informationen über Lebensmittel, wie Name, Barcode und Hersteller.
-- **Rezept**: Verwaltung von Rezepten und deren Zutaten.
-- **Nährwerte**: Details zu Kalorien, Makronährstoffen und Vitaminen.
-- **Portionen**: Portionstypen und -größen.
-- **Konsumation**: Nachverfolgung der Essenszeiten.
-- **Personen**: Nutzerinformationen, einschließlich Allergien und Gewicht.
-
-Eine vollständige Übersicht des Modells finden Sie in der Datei `Tablestructure Food Tracker.txt`.
+The database is designed for managing foods, recipes, consumption, and the associated nutritional information. It includes the following core functions:
+- Tracking items and their nutritional values.
+- Creating recipes and their ingredients.
+- Managing portions and consumption times.
 
 ---
 
-## Deployment-Skript
+## Data Model
 
-Das Deployment-Skript ist in der Datei `Postgres DB Deployment Script v2.txt` enthalten. Es führt die folgenden Schritte aus:
+The data model defines the structure and relationships between the tables. The main tables include:
 
-1. **Erster Schritt: Erstellen der Tabellen**:
-    - Jede Tabelle wird mit ihren entsprechenden Spalten und Datentypen erstellt.
-2. **Zweiter Schritt: Definieren der Beziehungen**:
-    - Fremdschlüssel werden hinzugefügt, um die Beziehungen zwischen Tabellen herzustellen.
-3. **Dritter Schritt: Artikel hinzufügen**:
-    - Artikel werden in der Tabelle Article und Nutrition_Values importiert. Achtung den Pfad der .csv anpassen!
-
+- **Items**: Information about foods, such as name, barcode, and manufacturer.
+- **Nutritional Values**: Details on calories, macronutrients, and vitamins.
+- **Manufacturers**: 
 
 ---
 
-## Integration der Schweizer Nährwertdatenbank
+## Deployment Script
 
-Dieses Projekt verwendet die **Schweizer Nährwertdatenbank** als Referenz für Nährwertinformationen. Diese Datenbank wird bereitgestellt vom:
+The deployment scripts should be deployed in the numbered order.
 
-Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV  
+---
+
+## Integration of the Swiss Nutrient Database
+
+This project uses the **Swiss Nutrient Database** as a reference for nutritional information. This database is provided by:
+
+Federal Departmen of Home Affairs FDHA
+Federal Food Safety and Veterinary Office FSVO  
 Schwarzenburgstrasse 155  
-3003 Bern  
-Schweiz
-(Stand 17.08.2023)
-https://naehrwertdaten.ch/de/downloads/
+3003 Bern
+Switzerland
+(As of 17.08.2023)  
+https://naehrwertdaten.ch/en/downloads/
 
-### Enthaltene Informationen
-Die Datenbank enthält:
-- **Generische Lebensmittel**: Allgemeine Lebensmittelkategorien und deren Nährwerte.
+### Included Information
+The database contains:
+- **Generic Foods**: General food categories and their nutritional values.
 
-Die relevanten Daten aus der Schweizer Nährwertdatenbank sind in der Tabelle `Nutritional_Values` der Food Tracker-Datenbank integriert.
+The relevant data from the Swiss Nutrient Database is integrated into the `Nutritional_Values` table of the Food Tracker database.
 
 ---
 
-## Anleitung zur Verwendung
+## Usage Instructions
 
-1. **Voraussetzungen**:
-   - PostgreSQL muss installiert sein.
-   - Ein Benutzer mit den erforderlichen Berechtigungen zur Erstellung von Datenbanken und Tabellen.
+1. **Prerequisites**:
+   - PostgreSQL must be installed.
+   - A user with the necessary permissions to create databases and tables.
 
 2. **Deployment**:
-   - Führen Sie das Deployment-Skript `Postgres DB Deployment Script v2.txt` mit einem SQL-Client oder über die Kommandozeile aus:
+   - Run the deployment script `Postgres DB Deployment Script v2.txt` with an SQL client or via the command line:
      ```bash
-     psql -U <Benutzername> -d <Datenbankname> -f "Postgres DB Deployment Script v2.txt"
+     psql -U <username> -d <database_name> -f "Postgres DB Deployment Script v2.txt"
      ```
-   - Stellen Sie sicher, dass alle Tabellen erfolgreich erstellt wurden.
+   - Ensure that all tables are created successfully.
 
-3. **Import der Nährwertdaten**:
-   - Die Tabellen aus der Schweizer Nährwertdatenbank können in die Tabellen der Food Tracker-Datenbank importiert werden. Der Schritt 3 führt das aus, dafür muss aber ein Pfad angegeben werden.
+3. **Import Nutritional Data**:
+   - The tables from the Swiss Nutrient Database can be imported into the tables of the Food Tracker database. Step 3 performs this, but a path must be specified.
 
-4. **Testen**:
-   - Verifizieren Sie die Tabellenstruktur und Beziehungen mit SQL-Befehlen wie:
+4. **Testing**:
+   - Verify the table structure and relationships with SQL commands such as:
      ```sql
      \dt
      ```
+---
+
+## Mapper
+
+The repository contains a Python mapper that creates database inserts from a modified Excel of the **Swiss Nutrient Database**.

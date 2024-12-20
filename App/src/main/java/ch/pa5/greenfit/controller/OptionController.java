@@ -2,6 +2,7 @@ package ch.pa5.greenfit.controller;
 
 import ch.pa5.greenfit.repository.entity.PersonEntity;
 import ch.pa5.greenfit.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -20,9 +21,16 @@ public class OptionController {
   private final UserService userService;
 
   @PostMapping("/options")
-  public String saveOptions(@RequestBody PersonEntity userOptionEntity, Model model) {
-     userService.saveUserOption(userOptionEntity).orElseThrow();
-     val user = userService.findUser();
+  public String saveOptions(
+      @RequestBody PersonEntity userOptionEntity, Model model, HttpServletResponse response) {
+
+    val oldUser = userService.findUser();
+    if (oldUser.getOptions().getWeight() == null) {
+      response.setHeader("HX-Redirect", "/");
+    }
+
+    userService.saveUserOption(userOptionEntity).orElseThrow();
+    val user = userService.findUser();
 
     model.addAttribute("user", user);
 

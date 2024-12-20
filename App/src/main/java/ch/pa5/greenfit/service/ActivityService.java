@@ -93,30 +93,29 @@ public class ActivityService {
 
   public BigDecimal calculateTotalBurn(Long userId, LocalDate date) {
     val activities = getAllActivities(userId, date);
-    return activities.stream()
-        .map(
-            activityLogEntity -> {
-              val metScore = activityLogEntity.getActivity().getMetScore();
-              val duration = activityLogEntity.getDuration();
-              val bodyWeight = activityLogEntity.getUser().getOptions().getWeight();
+    return activities.stream().map(this::calculateBurn).reduce(BigDecimal.ZERO, BigDecimal::add);
+  }
 
-              val metFactor =
-                  metScore
-                      .multiply(new BigDecimal("3.5"))
-                      .multiply(BigDecimal.valueOf(bodyWeight))
-                      .multiply(new BigDecimal("0.005"));
-              log.debug(
-                  "{} - bodyweight {} metScore {} MetFactor: {}",
-                  activityLogEntity.getActivity().getName(),
-                  bodyWeight,
-                  metScore,
-                  metFactor);
+  public BigDecimal calculateBurn(ActivityLogEntity activityLogEntity) {
+    val metScore = activityLogEntity.getActivity().getMetScore();
+    val duration = activityLogEntity.getDuration();
+    val bodyWeight = activityLogEntity.getUser().getOptions().getWeight();
 
-              val durationInMin = duration.divide(new BigInteger("60"));
-              log.debug("Duration in minutes: {}", durationInMin);
+    val metFactor =
+        metScore
+            .multiply(new BigDecimal("3.5"))
+            .multiply(BigDecimal.valueOf(bodyWeight))
+            .multiply(new BigDecimal("0.005"));
+    log.debug(
+        "{} - bodyweight {} metScore {} MetFactor: {}",
+        activityLogEntity.getActivity().getName(),
+        bodyWeight,
+        metScore,
+        metFactor);
 
-              return metFactor.multiply(new BigDecimal(durationInMin));
-            })
-        .reduce(BigDecimal.ZERO, BigDecimal::add);
+    val durationInMin = duration.divide(new BigInteger("60"));
+    log.debug("Duration in minutes: {}", durationInMin);
+
+    return metFactor.multiply(new BigDecimal(durationInMin));
   }
 }

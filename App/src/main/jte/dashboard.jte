@@ -21,7 +21,7 @@
             <div class="border-2 shadow-md rounded flex items-center justify-evenly ">
                 <div class="p-3 flex items-center">
                     <image class="size-16 mr-3" src="icon/workout.svg"></image>
-                    <div class="">?????</div>
+                    <div class="" hx-get="/api/activity-short-list" hx-trigger="load" hx-include="#selectedDate"></div>
                 </div>
                 <div class="p-3 flex items-center">
                     <image class="size-16 mr-3" src="icon/scale.svg"></image>

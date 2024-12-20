@@ -1,13 +1,17 @@
 package ch.pa5.greenfit.controller;
 
+import ch.pa5.greenfit.model.ShortActivity;
 import ch.pa5.greenfit.repository.entity.ActivityLogEntity;
 import ch.pa5.greenfit.repository.entity.ActivityTrackerEntity;
 import ch.pa5.greenfit.repository.entity.UserEntity;
 import ch.pa5.greenfit.service.ActivityService;
 import ch.pa5.greenfit.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +55,8 @@ public class ActivityController {
   }
 
   @PostMapping("/activity-log")
-  public String saveActivity(@RequestBody ActivityLogEntity activityLog, Model model) {
+  public String saveActivity(
+      @RequestBody ActivityLogEntity activityLog, Model model, HttpServletResponse response) {
     val savedActivityOpt =
         activityService.saveActivityLog(
             // the ui sends this in minutes
@@ -60,6 +65,8 @@ public class ActivityController {
         activity -> {
           model.addAttribute("userActivity", activity);
         });
+
+    response.setHeader("HX-Redirect", "/");
     return "fragment/user-activity";
   }
 
@@ -75,7 +82,9 @@ public class ActivityController {
 
   @PostMapping("/activity-timer/stop")
   public String stopActivityTimer(
-      @RequestBody ActivityTrackerEntity activityTrackerEntity, Model model) {
+      @RequestBody ActivityTrackerEntity activityTrackerEntity,
+      Model model,
+      HttpServletResponse response) {
     val activityTracker =
         activityService.stopActivityTimer(activityTrackerEntity.getUser().getId());
 
@@ -91,6 +100,27 @@ public class ActivityController {
 
     model.addAttribute("user", userService.findUser());
     model.addAttribute("activeTracker", null);
-    return "activity-page";
+
+    response.setHeader("HX-Redirect", "/");
+    return "fragment/user-activity";
+  }
+
+  @GetMapping("/activity-short-list")
+  public String activityShortList(Model model, @RequestParam LocalDate date) {
+    val user = userService.findUser();
+
+    val userActivities =
+        activityService.getAllActivities(user.getId(), date).stream()
+            .map(
+                activityLogEntity -> {
+                  val burn = activityService.calculateBurn(activityLogEntity).setScale(0, RoundingMode.FLOOR);
+                  return new ShortActivity(
+                      Duration.ofSeconds(activityLogEntity.getDuration().intValue()), burn);
+                })
+            .toList();
+
+    model.addAttribute("userActivities", userActivities);
+
+    return "fragment/activity-short-list";
   }
 }

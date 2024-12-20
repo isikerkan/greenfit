@@ -4,6 +4,7 @@ import ch.pa5.greenfit.repository.entity.UserEntity;
 import ch.pa5.greenfit.service.ActivityService;
 import ch.pa5.greenfit.service.UserService;
 import ch.pa5.greenfit.util.DateUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,13 +32,17 @@ public class ViewController {
   private final ActivityService activityService;
 
   @GetMapping("/dashboard")
-  public String dashboard(Model model) {
+  public String dashboard(Model model, HttpServletResponse response) {
     val yesterday = LocalDate.now().minusDays(1);
     var user = userService.findUser();
     model.addAttribute("user", user);
     model.addAttribute("selectedDate", LocalDate.now().toString());
     model.addAttribute("previousDate", yesterday.toString());
     model.addAttribute("previousDateLabel", DateUtils.computeDateLabel(yesterday));
+
+    if(user.getOptions().getWeight() == null){
+      response.setHeader("HX-Redirect", "/options");
+    }
     return "dashboard";
   }
 

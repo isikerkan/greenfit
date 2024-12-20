@@ -8,9 +8,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Greenfit</title>
-    <script src="https://unpkg.com/htmx.org@2.0.3"
-            integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq"
-            crossorigin="anonymous"></script>
+    <script src="/js/htmx-2.0.4.js"></script>
+<%--    <script src="https://unpkg.com/htmx.org@2.0.3"--%>
+<%--            integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq"--%>
+<%--            crossorigin="anonymous"></script>--%>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/gh/Emtyloc/json-enc-custom@main/json-enc-custom.js"></script>
     <style>

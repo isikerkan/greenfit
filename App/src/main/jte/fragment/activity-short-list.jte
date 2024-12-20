@@ -5,7 +5,7 @@
 
 @for(ShortActivity userActivity : userActivities)
     <div class="flex justify-between w-24">
-        <span>${"%02d:%02d".formatted(userActivity.duration().toMinutesPart(), userActivity.duration().toSecondsPart())}</span>
+        <span>${"%02d:%02d".formatted(userActivity.duration().toMinutes(), userActivity.duration().toSecondsPart())}</span>
         <span>${userActivity.calories()}</span>
     </div>
 @endfor

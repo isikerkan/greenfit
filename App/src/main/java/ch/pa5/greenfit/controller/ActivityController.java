@@ -6,10 +6,15 @@ import ch.pa5.greenfit.repository.entity.ActivityTrackerEntity;
 import ch.pa5.greenfit.repository.entity.UserEntity;
 import ch.pa5.greenfit.service.ActivityService;
 import ch.pa5.greenfit.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.sql.Statement;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -38,8 +43,14 @@ public class ActivityController {
   private final UserService userService;
 
   @GetMapping("/activity")
+  @Operation(summary = "Lists all activities and marks the selected one")
   public String getAllActivities(
-      @RequestParam(required = false) Long selectedActivity, Model model) {
+      @Parameter(
+              example = "4",
+              description = "if you wish to mark an activity as selected, pass this value")
+          @RequestParam(required = false)
+          Long selectedActivity,
+      Model model) {
     val activities = activityService.getAllActivities();
     log.info("This activity is selected: {}", selectedActivity);
     model.addAttribute("activities", activities);
@@ -48,6 +59,7 @@ public class ActivityController {
   }
 
   @GetMapping("/activity-log/{userId}")
+  @Operation(summary = "Lists all logged activities of a user.", deprecated = true)
   public String getAllUserActivities(@PathVariable Long userId, Model model) {
     val userActivities = activityService.getAllActivityLogs(userId);
     model.addAttribute("userActivities", userActivities);
@@ -55,22 +67,31 @@ public class ActivityController {
   }
 
   @PostMapping("/activity-log")
+  @Operation(
+      summary = "Saves the input activity log for a user.",
+      description =
+          "Duration is sent in minutes by the UI. The controller converts it to seconds.\nUser and activity are only sent by their id.",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "Returns empty. Redirects to the dashboard."))
   public String saveActivity(
-      @RequestBody ActivityLogEntity activityLog, Model model, HttpServletResponse response) {
-    val savedActivityOpt =
-        activityService.saveActivityLog(
-            // the ui sends this in minutes
-            activityLog.withDuration(activityLog.getDuration().multiply(new BigInteger("60"))));
-    savedActivityOpt.ifPresent(
-        activity -> {
-          model.addAttribute("userActivity", activity);
-        });
+      @RequestBody ActivityLogEntity activityLog, HttpServletResponse response) {
+    activityService.saveActivityLog(
+        // the ui sends this in minutes
+        activityLog.withDuration(activityLog.getDuration().multiply(new BigInteger("60"))));
 
     response.setHeader("HX-Redirect", "/");
-    return "fragment/user-activity";
+    return "empty";
   }
 
   @PostMapping("/activity-timer/start")
+  @Operation(
+      summary = "Starts a tracker with type TIMER.",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "Returns the same activity page. This time with an active tracker."))
   public String startActivityTimer(
       @RequestBody ActivityTrackerEntity activityTrackerEntity, Model model) {
     val activeTracker = activityService.startActivityTimer(activityTrackerEntity);
@@ -81,10 +102,16 @@ public class ActivityController {
   }
 
   @PostMapping("/activity-timer/stop")
+  @Operation(
+      summary = "Stops an active tracker and creates the activity log.",
+      description =
+          "The activity log is created based on the activity the tracker was created for and the duration between the start and the stop timestamps",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "Returns empty. Redirects to the dashboard"))
   public String stopActivityTimer(
-      @RequestBody ActivityTrackerEntity activityTrackerEntity,
-      Model model,
-      HttpServletResponse response) {
+      @RequestBody ActivityTrackerEntity activityTrackerEntity, HttpServletResponse response) {
     val activityTracker =
         activityService.stopActivityTimer(activityTrackerEntity.getUser().getId());
 
@@ -98,22 +125,29 @@ public class ActivityController {
                         .getSeconds()))
             .build());
 
-    model.addAttribute("user", userService.findUser());
-    model.addAttribute("activeTracker", null);
-
     response.setHeader("HX-Redirect", "/");
-    return "fragment/user-activity";
+    return "empty";
   }
 
   @GetMapping("/activity-short-list")
-  public String activityShortList(Model model, @RequestParam LocalDate date) {
+  @Operation(
+      summary = "Loads a shortlist of activities and their burnt calories.",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "Returns a list of duration and burnt calories tuples."))
+  public String activityShortList(
+      Model model, @Parameter(example = "2024-12-01") @RequestParam LocalDate date) {
     val user = userService.findUser();
 
     val userActivities =
         activityService.getAllActivities(user.getId(), date).stream()
             .map(
                 activityLogEntity -> {
-                  val burn = activityService.calculateBurn(activityLogEntity).setScale(0, RoundingMode.FLOOR);
+                  val burn =
+                      activityService
+                          .calculateBurn(activityLogEntity)
+                          .setScale(0, RoundingMode.FLOOR);
                   return new ShortActivity(
                       Duration.ofSeconds(activityLogEntity.getDuration().intValue()), burn);
                 })

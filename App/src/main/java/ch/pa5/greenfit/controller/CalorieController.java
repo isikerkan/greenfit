@@ -5,6 +5,9 @@ import ch.pa5.greenfit.repository.entity.ConsumptionEntity;
 import ch.pa5.greenfit.repository.entity.SlotEntity;
 import ch.pa5.greenfit.service.CalorieService;
 import ch.pa5.greenfit.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -33,6 +36,12 @@ public class CalorieController {
   private final UserService userService;
 
   @GetMapping("/get-foods")
+  @Operation(
+      summary = "Loads the full list of articles for the user to choose from.",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "The rendered html containing all the articles."))
   public String getFoods(Model model) {
 
     model.addAttribute("articles", calorieService.getAllCalories());
@@ -41,18 +50,26 @@ public class CalorieController {
   }
 
   @GetMapping("/food")
-  public String getFood(@RequestParam Long articleId, Model model) {
+  @Operation(
+      summary =
+          "Loads the singular food option. Used to reinstate the list entry if no food is added and it is toggled back.")
+  public String getFood(@Parameter(example = "5") @RequestParam Long articleId, Model model) {
     model.addAttribute("article", calorieService.getArticle(articleId));
     return "fragment/food-option";
   }
 
   @GetMapping("/add-food")
-  public String getFoodForm(Model model, @RequestParam Long articleId) {
+  @Operation(summary = "Loads the food option containing the form for adding a food.")
+  public String getFoodForm(Model model, @Parameter(example = "5") @RequestParam Long articleId) {
     model.addAttribute("article", calorieService.getArticle(articleId));
     return "fragment/food-option-form";
   }
 
   @GetMapping("/calorie-log/{userId}")
+  @Operation(
+      summary = "Loads the logged calories for a user",
+      description = "Deprecated in favor of /calories-by-slot",
+      deprecated = true)
   public String getAllUserCalories(@PathVariable Long userId, Model model) {
     val userConsumptions = calorieService.getAllConsumptions(userId);
     log.debug("Loaded user consumptions: {}", userConsumptions);
@@ -61,19 +78,27 @@ public class CalorieController {
   }
 
   @PostMapping("/calorie-log")
+  @Operation(
+      summary = "Saves a new calorie log",
+      description = "User, article and slot are only referenced by id",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "Returns empty. Redirects to the calories slot overview."))
   public String saveCalorieLog(
-      @RequestBody ConsumptionEntity consumptionEntity, Model model, HttpServletResponse response) {
+      @RequestBody ConsumptionEntity consumptionEntity, HttpServletResponse response) {
     log.info("Saving calorie log: {}", consumptionEntity);
-    val savedConsumptionOpt = calorieService.saveConsumption(consumptionEntity);
-    savedConsumptionOpt.ifPresent(
-        consumption -> model.addAttribute("userConsumption", consumption));
+    calorieService.saveConsumption(consumptionEntity);
 
     response.setHeader("HX-Redirect", "/calories");
-    return "fragment/user-portion";
+    return "empty";
   }
 
   @GetMapping("/calories-by-slot")
-  public String caloriesBySlot(Model model, @RequestParam(required = false) LocalDate date) {
+  @Operation(summary = "Loads a users calories by date, grouped by slot.")
+  public String caloriesBySlot(
+      Model model,
+      @Parameter(example = "2024-12-01") @RequestParam(required = false) LocalDate date) {
     val user = userService.findUser();
     val todaysConsumptions = calorieService.getAllConsumptions(user.getId(), date);
 

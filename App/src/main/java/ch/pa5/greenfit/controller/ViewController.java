@@ -4,6 +4,8 @@ import ch.pa5.greenfit.repository.entity.UserEntity;
 import ch.pa5.greenfit.service.ActivityService;
 import ch.pa5.greenfit.service.UserService;
 import ch.pa5.greenfit.util.DateUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.time.LocalDate;
@@ -32,6 +34,7 @@ public class ViewController {
   private final ActivityService activityService;
 
   @GetMapping("/dashboard")
+  @Operation(summary = "Returns the main content for the dashboard.")
   public String dashboard(Model model, HttpServletResponse response) {
     val yesterday = LocalDate.now().minusDays(1);
     var user = userService.findUser();
@@ -47,6 +50,7 @@ public class ViewController {
   }
 
   @GetMapping("/calories")
+  @Operation(summary = "Returns the main content for the calories page grouping by slot.")
   public String caloriesSlot(Model model) {
     val yesterday = LocalDate.now().minusDays(1);
 
@@ -59,10 +63,11 @@ public class ViewController {
   }
 
   @GetMapping("/calories/add")
+  @Operation(summary = "Returns the main content for the page where new calories are entered.")
   public String calories(
       Model model,
-      @RequestParam(name="slot", required = false) String slot,
-      @RequestParam(name = "date", required = false) LocalDate date) {
+      @Parameter(example = "99") @RequestParam(name="slot", required = false) String slot,
+      @Parameter(example = "2024-12-01") @RequestParam(name = "date", required = false) LocalDate date) {
     val currentTime = LocalTime.now();
     if (date == null) {
       date = LocalDate.now();
@@ -77,6 +82,7 @@ public class ViewController {
   }
 
   @GetMapping("/activities")
+  @Operation(summary = "Returns the main page where new activities can be logged.")
   public String activities(Model model) {
     val user = userService.findUser();
     model.addAttribute("user", user);
@@ -86,6 +92,7 @@ public class ViewController {
   }
 
   @GetMapping("/options")
+  @Operation(summary = "Returns the main content for the options page")
   public String options(Model model) {
     val user = userService.findUser();
     log.info("Loading options for user {}", user);
@@ -94,6 +101,7 @@ public class ViewController {
   }
 
   @GetMapping("/exit")
+  @Operation(summary = "Small page after a user account got deleted to allow the user to leave. Reentering the page with a valid session will recreate the user account.")
   public String exit(){
     return "exit";
   }

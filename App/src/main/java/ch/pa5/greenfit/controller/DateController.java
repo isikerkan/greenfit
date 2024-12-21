@@ -5,6 +5,8 @@ import ch.pa5.greenfit.repository.entity.ActivityTrackerEntity;
 import ch.pa5.greenfit.service.ActivityService;
 import ch.pa5.greenfit.service.UserService;
 import ch.pa5.greenfit.util.DateUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 import java.time.Duration;
@@ -29,8 +31,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class DateController {
 
   @GetMapping("/change-date")
-  public String changeDate(HttpServletResponse response, Model model, @RequestParam(required = false) LocalDate date) {
-    if(date == null) {
+  @Operation(
+      summary = "Endpoint to make date transitions.",
+      description =
+          "This is made in the backend because the date APIs in JavaScript are terribly error prone.",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "Returns the newly rendered date segment"))
+  public String changeDate(
+      HttpServletResponse response, Model model, @RequestParam(required = false) LocalDate date) {
+    if (date == null) {
       date = LocalDate.now();
     }
     val dayBefore = date.minusDays(1);

@@ -3,15 +3,12 @@ package ch.pa5.greenfit.service;
 import ch.pa5.greenfit.model.SlotWithCalories;
 import ch.pa5.greenfit.repository.ArticleRepository;
 import ch.pa5.greenfit.repository.ConsumptionRepository;
-import ch.pa5.greenfit.repository.PortionRepository;
-import ch.pa5.greenfit.repository.RecipeRepository;
 import ch.pa5.greenfit.repository.SlotRepository;
 import ch.pa5.greenfit.repository.entity.ArticleEntity;
 import ch.pa5.greenfit.repository.entity.ConsumptionEntity;
 import ch.pa5.greenfit.repository.entity.NutritionalValuesEntity;
 import ch.pa5.greenfit.repository.entity.PortionEntity;
 import ch.pa5.greenfit.repository.entity.PortionSizeEntity;
-import ch.pa5.greenfit.repository.entity.RecipeEntity;
 import ch.pa5.greenfit.repository.entity.SlotEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -131,5 +128,10 @@ public class CalorieService {
 
   public ArticleEntity getArticle(Long articleId) {
     return articleRepository.findById(articleId).orElseThrow();
+  }
+
+  @Transactional
+  public void deleteUserdata(Long userId) {
+    consumptionRepository.deleteAllByUserId(userId);
   }
 }

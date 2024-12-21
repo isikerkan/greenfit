@@ -12,8 +12,10 @@
     <div class="flex flex-col space-y-2"
          hx-get="/api/get-foods"
          hx-trigger="load"
+         hx-indicator="#spinner"
     >
     </div>
+    <img id="spinner" class="htmx-indicator size-24 mx-auto px-6 animate-spin " src="/icon/spinner.svg" alt="spinner">
 
 </div>
 

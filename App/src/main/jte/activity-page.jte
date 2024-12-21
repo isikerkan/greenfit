@@ -17,7 +17,7 @@
             <label for="activity" hx-get="api/activity" hx-trigger="load" hx-target="#activity"
                    hx-swap="innerHTML"
                    hx-vals='{"selectedActivity": ${Optional.ofNullable(activeTracker).map(ActivityTrackerEntity::getActivity).map(ActivityEntity::getId).orElse(-1L)}}'></label>
-            <select id="activity" name="activity[id]" class="p-1" disabled="${activeTracker != null}">
+            <select id="activity" name="activity[id]" class="p-1 border" disabled="${activeTracker != null}">
             </select>
             <p class="mt-20 text-l font-bold">Dauer</p>
             @if(activeTracker == null)

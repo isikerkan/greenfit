@@ -63,4 +63,18 @@ public class UserService {
     personRepository.save(personEntity);
     return personRepository.findById(userOptions.getId());
   }
+
+  @Transactional
+  public void deleteUserdata(UserEntity user) {
+    val options = user.getOptions();
+    options.setAge(null);
+    options.setHeight(null);
+    options.setWeight(null);
+    personRepository.save(options);
+  }
+
+  @Transactional
+  public void deleteUser(Long userId) {
+    userRepository.deleteById(userId);
+  }
 }

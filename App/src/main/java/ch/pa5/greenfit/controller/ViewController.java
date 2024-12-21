@@ -92,4 +92,9 @@ public class ViewController {
     model.addAttribute("user", user);
     return "options-page";
   }
+
+  @GetMapping("/exit")
+  public String exit(){
+    return "exit";
+  }
 }

@@ -25,10 +25,6 @@ public class ConsumptionEntity {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "recipe_id")
-  private RecipeEntity recipe;
-
-  @ManyToOne
   @JoinColumn(name = "article_id")
   private ArticleEntity article;
 

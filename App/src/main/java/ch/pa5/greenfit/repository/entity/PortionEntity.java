@@ -28,9 +28,4 @@ public class PortionEntity {
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "portion_size_id")
   private PortionSizeEntity size;
-
-  @ManyToOne
-  @JoinColumn(name = "recipe_id")
-  private RecipeEntity recipe;
-
 }

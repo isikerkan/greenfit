@@ -8,4 +8,6 @@ public interface ActivityTrackerRepository extends ListCrudRepository<ActivityTr
 
   Optional<ActivityTrackerEntity> findByUserIdAndStopUtcIsNull(Long userId);
 
+  void deleteAllByUserId(Long userId);
+
 }

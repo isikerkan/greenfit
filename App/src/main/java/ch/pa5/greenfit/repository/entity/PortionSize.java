@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @AllArgsConstructor
 public enum PortionSize {
-  GRAMM("g");
+  GRAMM("g"),
+  MILLILITER("ml");
 
   private final String displayName;
 }

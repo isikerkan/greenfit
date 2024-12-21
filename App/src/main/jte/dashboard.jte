@@ -8,7 +8,7 @@
 
     @template.fragment.date-navigation(selectedDate = selectedDate, previousDate = previousDate, previousDateLabel = previousDateLabel)
 
-    <div class="space-y-8 w-500px">
+    <div class="space-y-8 w-500px flex flex-col">
         <div class="">
             <h2>Kalorienansicht</h2>
             <div class="border-2 shadow-md rounded p-3">
@@ -30,17 +30,17 @@
                 </div>
             </div>
         </div>
+        <div class="group    p-2 size-24 self-end">
+            <div class="flex items-center justify-center rounded-full p-3 absolute">
+                <image class="size-16" src="icon/plus.svg"></image>
+            </div>
+            <div class="flex items-center justify-center rounded-full pl-6 pr-10 py-2 absolute transition-all duration-[0.2s] ease-out scale-y-0 group-hover:scale-y-100 group-hover:-translate-x-28 bg-blue-100">
+                <a class="w-12" href="/activities">Aktivitäten erfassen</a>
+            </div>
+            <div class="flex items-center justify-center rounded-full pl-6 pr-8 py-2 absolute transition-all duration-[0.2s] ease-out scale-x-0 group-hover:scale-x-100 group-hover:-translate-y-16 bg-blue-100  ">
+                <a class="w-12" href="/calories">Kalorien erfassen</a>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="group fixed bottom-0 right-0 p-2 size-24">
-    <div class="flex items-center justify-center rounded-full p-3 absolute">
-        <image class="size-16" src="icon/plus.svg"></image>
-    </div>
-    <div class="flex items-center justify-center rounded-full p-3 absolute transition-all duration-[0.2s] ease-out scale-y-0 group-hover:scale-y-100 group-hover:-translate-x-20">
-        <a href="/activities">Aktivitäten erfassen</a>
-    </div>
-    <div class="flex items-center justify-center rounded-full p-3 absolute transition-all duration-[0.2s] ease-out scale-x-0 group-hover:scale-x-100 group-hover:-translate-y-20">
-        <a href="/calories">Kalorien erfassen</a>
-    </div>
-</div>

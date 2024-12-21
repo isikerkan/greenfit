@@ -9,3 +9,7 @@
         <span>${userActivity.calories()}</span>
     </div>
 @endfor
+
+@if(userActivities == null || userActivities.isEmpty())
+    <image class="size-24   " src="/icon/spider.svg"/>
+@endif

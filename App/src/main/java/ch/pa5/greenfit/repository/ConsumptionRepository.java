@@ -10,4 +10,6 @@ public interface ConsumptionRepository extends ListCrudRepository<ConsumptionEnt
   List<ConsumptionEntity> findAllByUserId(Long userId);
 
   List<ConsumptionEntity> findAllByUserIdAndDateBetween(Long userId, Instant from, Instant to);
+
+  void deleteAllByUserId(Long userId);
 }

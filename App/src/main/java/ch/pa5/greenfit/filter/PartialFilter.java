@@ -39,7 +39,7 @@ public class PartialFilter implements Filter {
             .map(query -> "%s?%s".formatted(req.getServletPath(), query))
             .orElse(req.getServletPath());
 
-    if (path.startsWith("/icon/") || path.startsWith("/js/")) {
+    if (path.startsWith("/icon/") || path.startsWith("/js/") || path.equals("/exit")) {
       chain.doFilter(request, response);
     } else {
       if (hxRequestHeader == null) {

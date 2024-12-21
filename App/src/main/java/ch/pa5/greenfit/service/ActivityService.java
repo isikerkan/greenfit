@@ -118,4 +118,10 @@ public class ActivityService {
 
     return metFactor.multiply(new BigDecimal(durationInMin));
   }
+
+  @Transactional
+  public void deleteUserdata(Long userId) {
+    activityTrackerRepository.deleteAllByUserId(userId);
+    activityLogRepository.deleteAllByUserId(userId);
+  }
 }

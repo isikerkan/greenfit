@@ -10,4 +10,6 @@ public interface ActivityLogRepository extends ListCrudRepository<ActivityLogEnt
 
   List<ActivityLogEntity> findAllByUserId(Long userId);
   List<ActivityLogEntity> findAllByUserIdAndCreatedAtBetween(Long userId, Instant from, Instant to);
+
+  void deleteAllByUserId(Long userId);
 }

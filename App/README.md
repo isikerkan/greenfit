@@ -25,7 +25,7 @@ docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=docker --net greenfit greenfit
 Locally
 ```bash
 ./mvnw spring-boot:build-image
-docker tag greenfit:0.0.1-SNAPSHOT docker.io/banshay/greenfit:latest
+docker tag greenfit:1.0.0-SNAPSHOT docker.io/banshay/greenfit:latest
 docker push docker.io/banshay/greenfit:latest
 ```
 

@@ -4,6 +4,11 @@ logging:
     ch.pa5.greenfit: debug
     com.zaxxer: info
 
+springdoc:
+  model-and-view-allowed: true
+  paths-to-match: /api/**
+  packages-to-scan: ch.pa5.greenfit.controller
+
 
 spring:
   application:

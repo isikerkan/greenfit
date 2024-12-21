@@ -6,8 +6,9 @@ logging:
 
 springdoc:
   model-and-view-allowed: true
-  paths-to-match: /api/**
-  packages-to-scan: ch.pa5.greenfit.controller
+
+#  paths-to-match: /api/**
+#  packages-to-scan: ch.pa5.greenfit.controller
 
 
 spring:

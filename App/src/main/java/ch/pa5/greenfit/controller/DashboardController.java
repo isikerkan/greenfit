@@ -3,6 +3,8 @@ package ch.pa5.greenfit.controller;
 import ch.pa5.greenfit.service.ActivityService;
 import ch.pa5.greenfit.service.CalorieService;
 import ch.pa5.greenfit.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -27,7 +29,10 @@ public class DashboardController {
   private final ActivityService activityService;
 
   @GetMapping("/get-calorie-intake")
-  public String getCalorieIntake(Model model, @RequestParam(required = false) LocalDate date) {
+  @Operation(summary = "Loads the total of calories ingested.")
+  public String getCalorieIntake(
+      Model model,
+      @Parameter(example = "2024-12-01") @RequestParam(required = false) LocalDate date) {
     val user = userService.findUser();
     val todaysCalories =
         calorieService.calculateCalories(calorieService.getAllConsumptions(user.getId(), date));
@@ -38,7 +43,10 @@ public class DashboardController {
   }
 
   @GetMapping("/get-calorie-burn")
-  public String getCalorieBurn(Model model, @RequestParam(required = false) LocalDate date) {
+  @Operation(summary = "Loads the total of calories burnt.")
+  public String getCalorieBurn(
+      Model model,
+      @Parameter(example = "2024-12-01") @RequestParam(required = false) LocalDate date) {
     val user = userService.findUser();
     val todaysBurn = activityService.calculateTotalBurn(user.getId(), date);
     log.info("Today's burn: {}", todaysBurn);

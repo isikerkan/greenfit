@@ -4,6 +4,8 @@ import ch.pa5.greenfit.repository.entity.PersonEntity;
 import ch.pa5.greenfit.service.ActivityService;
 import ch.pa5.greenfit.service.CalorieService;
 import ch.pa5.greenfit.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,14 @@ public class OptionController {
   private final ActivityService activityService;
 
   @PostMapping("/options")
+  @Operation(
+      summary = "Stores the options of the user",
+      description =
+          "If the weight was previously null the user is in the first time access of the site and gets redirected to the dashboard afterwards. Otherwise the user can change the information on this page at will.",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "Returns the rendered content part of the options page."))
   public String saveOptions(
       @RequestBody PersonEntity userOptionEntity, Model model, HttpServletResponse response) {
 
@@ -44,6 +54,12 @@ public class OptionController {
   }
 
   @DeleteMapping("/user-data")
+  @Operation(
+      summary = "Deletes all of the users data.",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description = "Returns the rendered content part of the options page."))
   public String deleteUserdata(Model model) {
     val user = userService.findUser();
     calorieService.deleteUserdata(user.getId());
@@ -56,6 +72,15 @@ public class OptionController {
   }
 
   @DeleteMapping("/user-account")
+  @Operation(
+      summary = "Deletes all of the users data and then removes the user from the database.",
+      description =
+          "If the user reenters the page after deleting the user account, a new account will be created.",
+      responses =
+          @ApiResponse(
+              responseCode = "200",
+              description =
+                  "Redirects to the exit page where the user can close the tab in peace."))
   public String deleteUserAccount(HttpServletResponse response) {
     val user = userService.findUser();
     calorieService.deleteUserdata(user.getId());

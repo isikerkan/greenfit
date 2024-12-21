@@ -7,7 +7,7 @@
 
     <div class="flex-grow">
         <p class="text-xl mb-4">Bitte teile deine persönlichen Informationen</p>
-        <form hx-post="api/options" hx-ext="json-enc-custom" hx-target="#content" >
+        <form hx-post="api/options" hx-ext="json-enc-custom" hx-target="#content">
             <div class="flex flex-col items-center justify-center">
                 <div class="p-3">
                     <input id="userId" type="hidden" name="id" value="${user.getOptions().getId()}">
@@ -24,12 +24,15 @@
                                value="${user.getOptions().getWeight()}" class="border p-1">
                     </label>
                 </div>
+                <p class="text-[10px]">Mit der Eingabe und dem Speichern deiner Informationen ermächtigst du uns diese
+                    Informationen zu speichern und gemäss dem Schweizer Datenschutzgesetz zu verwalten.</p>
                 <button class="px-3 py-1 bg-blue-400 rounded mt-4" type="submit">Speichern</button>
             </div>
         </form>
     </div>
     <div class="flex justify-between w-1/2  ">
-        <p class="cursor-pointer" hx-delete="/api/user-data"  hx-target="#content" hx-indicator="#spinner">Userdaten löschen</p>
+        <p class="cursor-pointer" hx-delete="/api/user-data" hx-target="#content" hx-indicator="#spinner">Userdaten
+            löschen</p>
         <p class="cursor-pointer" hx-delete="/api/user-account" hx-swap="none">Useraccount löschen</p>
     </div>
 </div>

@@ -672,3 +672,121 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
+
+
+# Combined License Notice
+
+This repository/application uses various open-source components and libraries. All respective licenses and notices are outlined below with references to the original license texts.
+
+---
+
+## 18. Included Software Components
+
+18.1. **Webserver: Caddy**  
+   - License: [Apache License 2.0](https://github.com/caddyserver/caddy/blob/master/LICENSE)
+
+18.2. **Linux OS: Ubuntu**  
+   - Licenses:
+     - GNU General Public License (GPL) v2  
+     - GNU General Public License (GPL) v3  
+     - GNU Lesser General Public License (LGPL) v2.1  
+     - GNU Lesser General Public License (LGPL) v3  
+     - GNU Affero General Public License (AGPL) v3  
+     - Apache License 2.0  
+     - Artistic License 1.0  
+     - Artistic License 2.0  
+     - BSD License (3-Clause)  
+     - Boost Software License  
+     - Common Development and Distribution License (CDDL)  
+     - Eclipse Public License (EPL)  
+     - MIT License  
+     - Mozilla Public License (MPL) v2.0  
+     - Python Software Foundation License  
+     - zlib/libpng License  
+     - OpenSSL License  
+   - Reference:  
+     [Ubuntu Legal / Open Source Licences](https://ubuntu.com/legal/open-source-licences)
+
+18.3. **Letsencrypt (SSL)**  
+   - License: [Mozilla Public License 2.0](https://github.com/letsencrypt/boulder/blob/main/LICENSE.txt)
+
+18.4. **Quarkus & Quarkus Extensions**  
+   - License: [Apache License 2.0](https://github.com/quarkusio/quarkus/blob/main/LICENSE)
+
+18.5. **Hibernate ORM**  
+   - License: [GNU Lesser General Public License (LGPL) v2.1](https://hibernate.org/community/license/)
+
+18.6. **H2 Database**  
+   - License: [Mozilla Public License (MPL) 2.0](https://www.h2database.com/html/license.html)
+
+18.7. **Jakarta APIs**  
+   - License: [Apache License 2.0](https://beanvalidation.org/licensing/)
+
+18.8. **Resteasy Reactive**  
+   - License: [Apache License 2.0](https://github.com/resteasy/resteasy/blob/main/LICENSE)
+
+18.9. **Elytron**  
+   - License: [Apache License 2.0](https://github.com/wildfly-security/wildfly-elytron/blob/2.x/LICENSE.txt)
+
+18.10. **Jackson**  
+    - License: [Apache License 2.0](https://github.com/FasterXML/jackson-core/blob/2.19/LICENSE)
+
+18.11. **JUnit 5**  
+    - License: [Eclipse Public License (EPL) 2.0](https://github.com/junit-team/junit5/blob/main/LICENSE.md)
+
+18.12. **REST-Assured**  
+    - License: [Apache License 2.0](https://github.com/rest-assured/rest-assured/blob/master/LICENSE)
+
+18.13. **Pure CSS Hamburger fold-out menu**  
+  - Author: Erik Terwan  
+  - License: [MIT License](https://opensource.org/licenses/MIT)  
+  - Source: [Pure CSS Hamburger fold-out menu](https://onlinelibrary.wiley.com/doi/pdf/10.1002/clc.4960130809)  
+  - Note: If you are thinking of using this in production code, beware of the browser prefixes.
+
+---
+
+## 19. Icons & Graphics (via [SVG Repo](https://www.svgrepo.com/page/licensing/))
+
+License information for icons obtained through SVG Repo may vary (MIT, CC0, GPL, CC Attribution, etc.). Below is a list of specific icons used and their corresponding licenses:
+
+19.1. [Abdominal](https://www.svgrepo.com/svg/337276/abdominal)  
+   - Author: [Iconpark](https://github.com/bytedance/IconPark?ref=svgrepo.com)  
+   - License: MIT License  
+   - Source: [SVG Repo](https://www.svgrepo.com/)
+
+19.2. [Dumbbell](https://www.svgrepo.com/svg/521618/dumbbell)  
+   - Author: [Konstantin Filatov](https://www.figma.com/@thinkcly?ref=svgrepo.com)  
+   - License: CC Attribution License  
+   - Source: [SVG Repo](https://www.svgrepo.com/)
+
+19.3. [Muscle Up](https://www.svgrepo.com/svg/321152/muscle-up)  
+   - Author: [Game Icons.net](https://game-icons.net/?ref=svgrepo.com)  
+   - License: CC Attribution License  
+   - Source: [SVG Repo](https://www.svgrepo.com/)
+
+19.4. [Running](https://www.svgrepo.com/svg/487751/running)  
+   - Author: [Neuicons](https://github.com/neuicons/neu?ref=svgrepo.com)  
+   - License: MIT License  
+   - Source: [SVG Repo](https://www.svgrepo.com/)
+
+19.5. [Scale Unbalanced](https://www.svgrepo.com/svg/532455/scale-unbalanced)  
+   - Author: [Dazzle Ui](https://dazzleui.gumroad.com/l/dazzleiconsfree?ref=svgrepo.com)  
+   - License: CC Attribution License  
+   - Source: [SVG Repo](https://www.svgrepo.com/)
+
+19.6. [Weight Lifting Up](https://www.svgrepo.com/svg/323636/weight-lifting-up)  
+   - Author: [Game Icons.net](https://game-icons.net/?ref=svgrepo.com)  
+   - License: CC Attribution License  
+   - Source: [SVG Repo](https://www.svgrepo.com/)
+
+19.7. [Scale Light Line](https://www.svgrepo.com/svg/376654/scale-light-line)  
+   - Author: [Halfmage](https://github.com/halfmage/pixelarticons?ref=svgrepo.com)  
+   - License: MIT License  
+   - Source: [SVG Repo](https://www.svgrepo.com/)
+
+  19.8. [Spinner](https://www.svgrepo.com/svg/376217/spinner)  
+    - Author: [Gitlab](https://gitlab.com/gitlab-org/gitlab-svgs?ref=svgrepo.com)  
+    - License: Logo License  
+    - Source: [SVG Repo](https://www.svgrepo.com/)
+
+---

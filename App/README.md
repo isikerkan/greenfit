@@ -25,8 +25,8 @@ docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=docker --net greenfit greenfit
 Locally
 ```bash
 ./mvnw spring-boot:build-image
-docker tag greenfit:1.0.0-SNAPSHOT docker.io/banshay/greenfit:latest
-docker push docker.io/banshay/greenfit:latest
+docker tag greenfit:1.0.0-SNAPSHOT docker.io/melihtrk/greenfit:latest
+docker push docker.io/melihtrk/greenfit:latest
 ```
 
 On the box
@@ -41,6 +41,6 @@ docker stop <container name>
 ```
 Start new one
 ```bash
-docker pull banshay/greenfit
-docker run --env-file /var/opt/.env --rm -d -p 8080:8080 banshay/greenfit
+docker pull melihtrk/greenfit
+docker run --env-file /var/opt/.env --rm -d -p 8080:8080 melihtrk/greenfit
 ```

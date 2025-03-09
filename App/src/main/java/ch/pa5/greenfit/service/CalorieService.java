@@ -56,7 +56,7 @@ public class CalorieService {
     return consumptionRepository.findAllByUserIdAndDateBetween(userId, startOfDay, endOfDay);
   }
 
-  public List<SlotEntity> getAllSlots() {
+  private List<SlotEntity> getAllSlots() {
     return slotRepository.findAll();
   }
 

@@ -42,7 +42,7 @@ public class UserService {
   }
 
   @Transactional
-  public Optional<UserEntity> saveUser() {
+  private Optional<UserEntity> saveUser() {
     val userName = getAuthenticatedUsername().orElseThrow();
     val userEntity = new UserEntity();
     userEntity.setExternalId(userName);

@@ -49,9 +49,6 @@ public class ActivityService {
     return activityLogRepository.findById(savedActivity.getId());
   }
 
-  public Optional<ActivityEntity> findActivityLog(Long activityLogId) {
-    return activityRepository.findById(activityLogId);
-  }
 
   public Optional<ActivityTrackerEntity> findActiveTracker(Long userId) {
     return activityTrackerRepository.findByUserIdAndStopUtcIsNull(userId);

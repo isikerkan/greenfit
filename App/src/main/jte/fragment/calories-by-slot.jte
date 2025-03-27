@@ -1,5 +1,6 @@
 @import java.util.List
 @import ch.pa5.greenfit.model.SlotWithCalories
+@import ch.pa5.greenfit.repository.entity.ConsumptionEntity
 
 @param List<SlotWithCalories> slots
 @param String selectedDate
@@ -14,5 +15,7 @@
             <image class="size-16" src="icon/plus.svg"></image>
         </a>
     </div>
-    ${slot.consumption()}
+    @for (ConsumptionEntity consumptionEntity : slot.consumption ())
+    ${consumptionEntity.getArticle().getName()}
+    @endfor
 @endfor

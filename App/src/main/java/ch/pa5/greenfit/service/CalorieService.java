@@ -121,7 +121,7 @@ public class CalorieService {
         .map(
             slotEntity ->
                 new SlotWithCalories(
-                    slotEntity, calculateCalories(consumptionBySlot.get(slotEntity.getId()))))
+                    slotEntity, calculateCalories(consumptionBySlot.get(slotEntity.getId())),List.of()))
         .sorted(Comparator.comparing(slotWithCalories -> slotWithCalories.slot().getId()))
         .toList();
   }

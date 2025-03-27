@@ -14,4 +14,5 @@
             <image class="size-16" src="icon/plus.svg"></image>
         </a>
     </div>
+    ${slot.consumption()}
 @endfor

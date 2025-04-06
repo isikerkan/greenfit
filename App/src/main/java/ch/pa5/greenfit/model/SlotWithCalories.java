@@ -5,4 +5,5 @@ import java.math.BigDecimal;
 import ch.pa5.greenfit.repository.entity.ConsumptionEntity;
 import java.util.List;
 
-public record SlotWithCalories(SlotEntity slot, BigDecimal calories, List<ConsumptionEntity> consumption) {}
+public record SlotWithCalories(SlotEntity slot, BigDecimal calories, List<ConsumptionEntity> consumption) {
+}

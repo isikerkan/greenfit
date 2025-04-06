@@ -4,3 +4,4 @@ import ch.pa5.greenfit.repository.entity.SlotEntity;
 import java.math.BigDecimal;
 
 public record SlotWithCalories(SlotEntity slot, BigDecimal calories) {}
+public record SlotWithCalories(SlotEntity slot, BigDecimal calories, List<ConsumptionEntity> consumption) {}

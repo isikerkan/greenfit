@@ -13,6 +13,7 @@ import ch.pa5.greenfit.repository.entity.PortionSize;
 import ch.pa5.greenfit.repository.entity.PortionSizeEntity;
 import ch.pa5.greenfit.repository.entity.SlotEntity;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -116,8 +117,8 @@ class CalorieServiceTest {
     val grouped = calorieService.groupConsumptionsBySlot(List.of(consumption, consumption2));
 
     assertEquals(2, grouped.size());
-    assertEquals(new SlotWithCalories(otherSlot, BigDecimal.ZERO), grouped.getFirst());
-    assertEquals(new SlotWithCalories(defaultSlot, new BigDecimal("3000")), grouped.getLast());
+    assertEquals(new SlotWithCalories(otherSlot, BigDecimal.ZERO, List.of()), grouped.getFirst());
+    assertEquals(new SlotWithCalories(defaultSlot, new BigDecimal("3000"), List.of()), grouped.getLast());
   }
 
   @Test
@@ -163,8 +164,8 @@ class CalorieServiceTest {
     val grouped = calorieService.groupConsumptionsBySlot(List.of(consumption, consumption2));
 
     assertEquals(3, grouped.size());
-    assertEquals(new SlotWithCalories(firstSlot, new BigDecimal("700")), grouped.getFirst());
-    assertEquals(new SlotWithCalories(secondSlot, new BigDecimal("2300")), grouped.get(1));
-    assertEquals(new SlotWithCalories(defaultSlot, BigDecimal.ZERO), grouped.getLast());
+    assertEquals(new SlotWithCalories(firstSlot, new BigDecimal("700"), List.of()), grouped.getFirst());
+    assertEquals(new SlotWithCalories(secondSlot, new BigDecimal("2300"), List.of()), grouped.get(1));
+    assertEquals(new SlotWithCalories(defaultSlot, BigDecimal.ZERO, List.of()), grouped.getLast());
   }
 }

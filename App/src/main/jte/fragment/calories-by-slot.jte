@@ -6,7 +6,8 @@
 @param String selectedDate
 
 @for (SlotWithCalories slot : slots)
-    <div class="flex items-center justify-between border-2 shadow-xs">
+    <div class="border-2 shadow-xs">
+    <div class="flex items-center justify-between">
         <div class="p-4">
             <p>${slot.slot().getName()}</p>
             <p>${slot.calories()} kcal</p>
@@ -18,4 +19,5 @@
     @for (ConsumptionEntity consumptionEntity : slot.consumption ())
     ${consumptionEntity.getArticle().getName()}
     @endfor
+    </div>
 @endfor

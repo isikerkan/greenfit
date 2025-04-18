@@ -126,7 +126,9 @@ public class CalorieService {
         .sorted(Comparator.comparing(slotWithCalories -> slotWithCalories.slot().getId()))
         .toList();
   }
-
+  public void deletecalorieLog(Long id) {
+     consumptionRepository.deleteById(id);
+  }
   public ArticleEntity getArticle(Long articleId) {
     return articleRepository.findById(articleId).orElseThrow();
   }

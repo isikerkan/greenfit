@@ -17,7 +17,10 @@
         </a>
     </div>
     @for (ConsumptionEntity consumptionEntity : slot.consumption ())
-    ${consumptionEntity.getArticle().getName()}
+        <div>
+         ${consumptionEntity.getArticle().getName()}
+            <spam class="cursor-pointer" hx-delete="/api/calorie-log/${consumptionEntity.getId()}">X</spam>
+        </div>
     @endfor
     </div>
 @endfor

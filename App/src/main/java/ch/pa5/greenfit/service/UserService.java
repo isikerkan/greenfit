@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -49,9 +51,10 @@ public class UserService {
     userEntity.setOptions(new PersonEntity());
     val savedUser = userRepository.save(userEntity);
     try {
-      // first time users have an exception here
+      // after deleting account, this throws an exception.
       entityManager.refresh(savedUser);
     } catch (Exception ignored) {
+      log.warn("refresh failed, typically after deleting account, this is ok. ignoring exception");
     }
     return userRepository.findById(savedUser.getId());
   }
